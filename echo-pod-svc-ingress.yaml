@@ -1,0 +1,38 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: app1-deploy
+  labels:
+    app: app1
+spec:
+  containers:
+    - name: app1
+      image: hashicorp/http-echo:0.2.3
+      args:
+        - "-text=Hello World! This is Kubernetes kind running an echo App"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: app1-service
+spec:
+  selector:
+    app: app1
+  ports:
+    - port: 5678
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app1-ingress
+spec:
+  rules:
+    - http:
+        paths:
+          - pathType: Prefix
+            path: "/app1"
+            backend:
+              service:
+                name: app1-service
+                port:
+                  number: 5678
