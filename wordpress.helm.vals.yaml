@@ -1,0 +1,11 @@
+wordpressUsername: carltonj2000
+wordpressPassword: test1234
+wordpressBlogName: Carlton's Blog!
+mariadb:
+  auth:
+    rootPassword: test1234
+service:
+  type: ClusterIP
+wordpressExtraConfigContent: |
+  define( 'WP_HOME', 'http://' . $_SERVER['HTTP_HOST'] . '/wordpress' );
+  define( 'WP_SITEURL', 'http://' . $_SERVER['HTTP_HOST'] . '/wordpress' );
