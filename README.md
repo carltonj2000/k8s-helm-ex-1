@@ -8,6 +8,8 @@ Note, failed getting wordpress to install in a non / url.
 So for future reference install wordpress to / and other sites to
 /some-thing-else.
 
+Note, some wordpress plugins will need more memory than the default.
+
 ```bash
 kind get clusters
 kind create cluster --config kind-cluster-conf-1.yaml
@@ -42,4 +44,13 @@ select * from wp_options where option_name = 'home';
 exit
 # cause reload of wp with latest db info
 kubectl delete pod wp-wordpress-55dfd5f79d-x768r
+```
+
+Did not do the following.
+
+```bash
+helm history wp
+# make modification to helm.vals.yaml (maybe for more memory)
+helm upgrade -f wordpress.helm.vals.yaml wp bitnami/wordpress
+helm rollback wordpress 1
 ```
